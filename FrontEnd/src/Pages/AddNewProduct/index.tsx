@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AddNewProduct() {
+  const navigate = useNavigate();
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  // const navigate = useNavigate();
 
   const addProductToDB = () => {
     axios.post('http://localhost:3001/products', {
       "name": name,
       "price": price,
     })
+    navigate('/')
   }
 
   return (
@@ -27,9 +28,7 @@ function AddNewProduct() {
           <input value={price} onChange={(e) => setPrice(e.target.value)} type="number"/>
         </label>
       </form>
-      <Link to='/'>
         <button type="submit" onClick={() => addProductToDB()}>Cadastrar produto</button>
-      </Link>
       <Link to='/' ><button>Cancelar</button></Link>
     </>
   )

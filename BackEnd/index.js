@@ -43,5 +43,20 @@ app.post('/products', async (req, res) => {
   }
 })
 
+// Endpoint para remover produtos
+app.delete('/products/:id', async (req, res) => {
+  try {
+    const FileContent = await fs.readFile(path.resolve(__dirname, './products.json'), 'utf-8')
+    const data = JSON.parse(FileContent)
+    const getId = req.params;
+    const getIndexbyId = data.findIndex((p) => p.id === Number(getId.id))
+    data.splice(getIndexbyId, 1)
+    await fs.writeFile(path.resolve(__dirname, 'products.json'), JSON.stringify(data, null, 2), 'utf-8');
+    res.status(200).json(data)
+  } catch (error) {
+    res.status(400).json(`Error: ${error.message}`)
+  }
+})
+
 app.listen(3001, () => console.log('Servidor rodando na porta 3001'))
 
