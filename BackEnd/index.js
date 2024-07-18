@@ -30,15 +30,14 @@ app.post('/products', async (req, res) => {
     const data = JSON.parse(FileContent)
     const body = req.body
     const getNewid = data.length + 1
-    data.push(
-      {
-        id: getNewid,
-        name: body.name,
-        price: body.price,
-      }
-    )
-    await fs.readFile(path.resolve(__dirname, 'products.json'), JSON.stringify(data, null, 2), 'utf-8');
-    res.status(200).json('cadastrado com sucesso')
+    const newProduct = {
+      id: getNewid,
+      name: body.name,
+      price: body.price,
+    }
+    data.push(newProduct)
+    await fs.writeFile(path.resolve(__dirname, 'products.json'), JSON.stringify(data, null, 2), 'utf-8');
+    res.status(200).json(newProduct)
   } catch (error) {
     res.status(400).json(`Error: ${error.message}`)
   }

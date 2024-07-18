@@ -8,5 +8,15 @@
     "id": 2,
     "name": "Samsung galaxy A03",
     "price": 899
+  },
+  {
+    "id": 3,
+    "name": "guitarra",
+    "price": "1500"
+  },
+  {
+    "id": 4,
+    "name": "opalao",
+    "price": "20000"
   }
 ]
